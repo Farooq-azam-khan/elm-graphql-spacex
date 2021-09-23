@@ -7680,16 +7680,80 @@ var $author$project$Main$update = F2(
 		var response = msg.a;
 		return _Utils_Tuple2(response, $elm$core$Platform$Cmd$none);
 	});
-var $elm$html$Html$div = _VirtualDom_node('div');
+var $elm$html$Html$li = _VirtualDom_node('li');
+var $elm$html$Html$ol = _VirtualDom_node('ol');
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $elm$core$Debug$toString = _Debug_toString;
+var $author$project$Main$display_capsules = function (capsule_resp) {
+	if (capsule_resp.$ === 'Just') {
+		var capsule = capsule_resp.a;
+		return A2(
+			$elm$html$Html$ol,
+			_List_Nil,
+			A2(
+				$elm$core$List$map,
+				function (cap) {
+					return A2(
+						$elm$html$Html$li,
+						_List_Nil,
+						_List_fromArray(
+							[
+								function () {
+								if (cap.$ === 'Just') {
+									var x = cap.a;
+									return $elm$html$Html$text(
+										$elm$core$Debug$toString(x));
+								} else {
+									return $elm$html$Html$text('');
+								}
+							}()
+							]));
+				},
+				capsule));
+	} else {
+		return $elm$html$Html$text('');
+	}
+};
+var $elm$html$Html$div = _VirtualDom_node('div');
+var $elm$html$Html$h1 = _VirtualDom_node('h1');
+var $elm$html$Html$pre = _VirtualDom_node('pre');
 var $author$project$Main$view = function (model) {
 	return A2(
 		$elm$html$Html$div,
 		_List_Nil,
 		_List_fromArray(
 			[
-				$elm$html$Html$text('todo')
+				A2(
+				$elm$html$Html$h1,
+				_List_Nil,
+				_List_fromArray(
+					[
+						$elm$html$Html$text('Generate Query')
+					])),
+				A2(
+				$elm$html$Html$pre,
+				_List_Nil,
+				_List_fromArray(
+					[
+						$elm$html$Html$text(
+						$dillonkearns$elm_graphql$Graphql$Document$serializeQuery($author$project$Main$query))
+					])),
+				A2(
+				$elm$html$Html$h1,
+				_List_Nil,
+				_List_fromArray(
+					[
+						$elm$html$Html$text('Response')
+					])),
+				function () {
+				if (model.$ === 'Success') {
+					var response = model.a;
+					return $author$project$Main$display_capsules(response.capsules);
+				} else {
+					return $elm$html$Html$text('');
+				}
+			}()
 			]));
 };
 var $author$project$Main$main = $elm$browser$Browser$element(
